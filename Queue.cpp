@@ -12,14 +12,12 @@ int main()
         q.push(a);
         i++;
     }
-    while(i > 0){
-
-    std::cout << "Front in the queue is : " << q.front() << std::endl;
-    std::cout << "Popping...."<< q.front() << std::endl;
-    q.pop();
-    i--;
+    while (i > 0)
+    {
+        std::cout << "Front in the queue is : " << q.front() << std::endl;
+        std::cout << "Popping...." << q.front() << std::endl;
+        q.pop();
+        i--;
     }
     return 0;
-
-
 }
