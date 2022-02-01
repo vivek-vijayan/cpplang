@@ -1,14 +1,15 @@
 #include <iostream>
-#include<queue>
+#include <queue>
 
 struct Node
 {
 	int data;
 	struct Node *left;
 	struct Node *right;
-
 	Node(int val) { data = val; }
 };
+
+std::queue<Node *> q;
 
 Node *CreateNode(int data)
 {
@@ -28,7 +29,7 @@ Node *DeleteNode(Node *nodename)
 	}
 	else
 		std::cout << "Cannot remove the parent member .." << std::endl;
-		return nodename;
+	return nodename;
 }
 
 void inorder(Node *root)
@@ -40,36 +41,80 @@ void inorder(Node *root)
 	inorder(root->right);
 }
 
+Node *usingDataGetParent(int checkData)
+{
+	std::queue<Node *> temp(q);
+	while (!temp.empty())
+	{
+		if (temp.front()->data == checkData)
+		{
+			return temp.front();
+		}
+		else
+		{
+			temp.pop();
+		}
+	}
+	return NULL;
+}
+
 int main()
 {
 	bool check = true;
 	char answer = 'y';
+	int checkParent;
 	int data;
 	struct Node *root = new Node(10);
-	std::queue<Node *> q;
+
 	q.push(root);
-	while(check)
+	while (check)
 	{
-		std::cout << "Do you want to add a node?    :"; std::cin >> answer; if (answer == 'y'){
-			std::cout << "Do you want left or right?     :"; std::cin >> answer; if(answer == 'l'){
-				std::cout << "Enter the data: " ; std::cin >> data;
-				root -> left = CreateNode(data);
-				q.push(root -> left);
+		std::cout << "Do you want to add a node?    :";
+		std::cin >> answer;
+		if (answer == 'y')
+		{
+			std::cout << "Do you want left or right?     :";
+			std::cin >> answer;
+			if (answer == 'l')
+			{
+				std::cout << "Enter the data: ";
+				std::cin >> data;
+				std::cout << "After which data node, you want to add this? : ";
+				std::cin >> checkParent;
+				if (usingDataGetParent(checkParent) != NULL)
+				{
+					usingDataGetParent(checkParent)->left = CreateNode(data);
+					q.push(usingDataGetParent(checkParent)->left);
+					std::cout << "Data moved under the parent : " << usingDataGetParent(checkParent) << "\n";
+				}
+				else
+				{
+					std::cout << "Sorry!, no such data node found";
+				}
 			}
 			else
 			{
-				std::cout << "Enter the data: " ; std::cin >> data;
-				root -> right = CreateNode(data);
-				q.push(root -> right);
+				std::cout << "Enter the data: ";
+				std::cin >> data;
+				std::cout << "After which data node, you want to add this? : ";
+				std::cin >> checkParent;
+				if (usingDataGetParent(checkParent) != NULL)
+				{
+					usingDataGetParent(checkParent)->right = CreateNode(data);
+					q.push(usingDataGetParent(checkParent)->right);
+					std::cout << "Data moved under the parent : " << usingDataGetParent(checkParent) << "\n";
+				}
+				else
+				{
+					std::cout << "Sorry!, no such data node found";
+				}
 			}
 		}
-		std::cout << "Do you want to continue? "; std::cin >> answer; if (answer == 'n') check = false;
+		std::cout << "Do you want to continue? ";
+		std::cin >> answer;
+		if (answer == 'n')
+			check = false;
 	}
 	std::cout << " Data structure:" << std::endl;
-	for (int i = 0; i < q.size() + 1; i++)
-	{
-		Node* tempNode = q.front();
-		std::cout << tempNode -> left -> data << " <- " << tempNode -> data << " -> " << tempNode -> right -> data << std::endl;
-		q.pop();
-	}
+	inorder(root);
 }
