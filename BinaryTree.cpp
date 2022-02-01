@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 
 struct Node
 {
@@ -39,6 +40,27 @@ void inorder(Node *root)
 	inorder(root->left);
 	std::cout << "Data : " << root->data << std::endl;
 	inorder(root->right);
+}
+
+void inorder_without_rec(Node *root)
+{
+	std::cout << "Inorder - without recursion : " << std::endl;
+	Node *curr = root;
+	std::stack<Node *> stk;
+
+	while (!stk.empty() || curr != NULL)
+	{
+		while (curr != NULL)
+		{
+			stk.push(curr);
+			curr = curr->left;
+		}
+		curr = stk.top();
+		std::cout << "Data : " << curr->data << std::endl;
+		stk.pop();
+
+		curr = curr->right;
+	}
 }
 
 Node *usingDataGetParent(int checkData)
@@ -116,5 +138,7 @@ int main()
 			check = false;
 	}
 	std::cout << " Data structure:" << std::endl;
+	std::cout << "Inorder - with recursion : " << std::endl;
 	inorder(root);
+	inorder_without_rec(root);
 }
