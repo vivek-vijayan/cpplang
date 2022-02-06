@@ -7,7 +7,7 @@
 #include <iostream>
 
 // ! Size of board - output will be displayed for matrix SIZE X SIZE
-#define SIZE 25
+#define SIZE 20
 
 static int totalQueen = SIZE;
 
