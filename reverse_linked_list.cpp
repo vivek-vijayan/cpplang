@@ -38,9 +38,19 @@ int main()
 	c->next = d;
 	d->next = NULL;
 
-	LinkList *head = reverse(a);
+	LinkList *head = a;
+
+	do
+	{
+		std::cout << head->data << " -> ";
+		head = head->next;
+	} while (head != NULL);
+	std::cout << "NULL\n";
+	head = reverse(a);
+	
 	// LinkList *head = a;
 
+	std::cout << "\n\nAfter reversing \n ";
 	do
 	{
 		std::cout << head->data << " -> ";

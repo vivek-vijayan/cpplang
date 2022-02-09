@@ -43,6 +43,8 @@ int main()
     std::cout << root->left->left->data << std::endl;
     std::cout << root->left->right->data << std::endl;
 
+
+    std::cout << "After reversing \n ";
     Tree *reversed_root = reverse_binary_tree(root);
 
     std::cout << reversed_root->data << std::endl;
